@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:socially/screen/login.dart';
 import 'package:socially/screen/splash.dart';
 import 'package:socially/theme.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       //themeMode: ThemeMode.dark,
-      home: const SplashScreen(),
+      home: LoginScreen(),
     );
   }
 }

@@ -39,6 +39,9 @@ dependencies:
   jiffy:
   provider:
   english_words: ^4.0.0
+  bouncing_widget: ^2.0.0
+  delayed_display: ^2.0.0
+  animate_do: ^2.1.0
   
   
 dev_dependencies:
