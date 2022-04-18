@@ -77,7 +77,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
                                 BoxShadow(
-                                    color: Color.fromRGBO(225, 95, 27, .3),
+                                    color: Colors.blue,
                                     blurRadius: 20,
                                     offset: Offset(0, 10))
                               ]),
@@ -166,12 +166,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                       suffixIcon: InkWell(
                                         onTap: (){
-                                          if (show = true){
-                                            return;
-                                          }else{
-                                            show = false;
-                                          }
                                           setState(() {
+                                            if (show = true){
+                                            show = false;
+                                          }else{
+                                            show = true;
+                                          }
                                           });
                                         },
                                         child: Icon(Icons.remove_red_eye),

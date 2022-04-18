@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:socially/screen/login.dart';
 import 'package:socially/screen/messages.dart';
 import 'package:socially/theme.dart';
 
@@ -18,9 +20,7 @@ class _HomeState extends State<Home> {
     int _selectedIndex = 0;
     final List _children = [
       MessageScreen(),
-      Center(
-        child: Text('Call'),
-      ),
+      LoginScreen(),
       Center(
         child: Text('Notification'),
       ),
@@ -35,11 +35,7 @@ class _HomeState extends State<Home> {
       });
     }
 
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: AppTheme.light(),
-      darkTheme: AppTheme.dark(),
-      home: Scaffold(
+    return Scaffold(
         body: _children[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.grey,
@@ -48,25 +44,25 @@ class _HomeState extends State<Home> {
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.message,
+                CupertinoIcons.chat_bubble_2,
               ),
-              label: 'Home',
+              label: 'Massages',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.call,
+                CupertinoIcons.alarm,
               ),
-              label: 'Article',
+              label: 'Notification',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.notifications,
+                CupertinoIcons.bag_fill,
               ),
-              label: 'Store',
+              label: 'Call',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.person,
+                CupertinoIcons.person,
               ),
               label: 'Profile',
             ),
@@ -75,7 +71,6 @@ class _HomeState extends State<Home> {
           selectedItemColor: Colors.blue,
           onTap: _onItemTapped,
         ),
-      ),
-    );
+      );
   }
 }

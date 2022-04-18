@@ -20,12 +20,14 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        color: Colors.white,
         height: double.infinity,
         width: double.infinity,
         child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             DelayedDisplay(
-              delay: const Duration(seconds: 3),
+              fadingDuration: const Duration(seconds: 2),
+              delay: const Duration(seconds: 2),
               fadeIn: true,
               child: Container(
                 margin: const EdgeInsets.fromLTRB(0, 0, 0, 5),
@@ -39,7 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             DelayedDisplay(
-              delay: const Duration(seconds: 3),
+              fadingDuration: const Duration(seconds: 2),
+              delay: const Duration(seconds: 2),
               fadeIn: true,
               child: Container(
                 margin: const EdgeInsets.fromLTRB(0, 0, 0, 10),
@@ -54,7 +57,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             FadeInRight(
-              delay: const Duration(seconds: 3),
+              animate: true,
+              delay: const Duration(seconds: 2),
               child: Container(
                 child: Image.asset(
                   "images/spimg.png",
@@ -62,31 +66,34 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-              child: BouncingWidget(
-                scaleFactor: 1.5,
-                duration: const Duration(milliseconds: 100),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
-                },
-                child: Container(
-                  height: 60,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100.0),
-                    color: Colors.blue,
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Start',
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+            FadeIn(animate: true,duration: const Duration(seconds: 2),
+              delay: const Duration(seconds: 2),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                child: BouncingWidget(
+                  scaleFactor: 1.5,
+                  duration: const Duration(milliseconds: 2000),
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
+                  },
+                  child: Container(
+                    height: 60,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(100.0),
+                      color: Colors.blue,
+                    ),
+                    child: const Center(
+                      child: Text(
+                        'Start',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
