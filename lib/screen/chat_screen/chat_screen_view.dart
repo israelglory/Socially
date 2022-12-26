@@ -3,17 +3,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:socially/models/user_data.dart';
+import 'package:socially/screen/chat_screen/chat_screen_viewmodel.dart';
 import 'package:socially/theme.dart';
 import 'package:socially/widgets/bottom_chat.dart';
 import 'package:socially/widgets/chat_app_bar.dart';
 import 'package:socially/widgets/receiver_msg.dart';
 import 'package:socially/widgets/sender_msg.dart';
+import 'package:stacked/stacked.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({
+  const ChatScreen({
     Key? key,
     required this.messageData,
-     //required this.link,
+    //required this.link,
     //required this.name,
   }) : super(key: key);
 
@@ -23,58 +25,25 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: Theme.of(context).iconTheme,
-        centerTitle: false,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leadingWidth: 54,
-        leading: Align(
-          alignment: Alignment.centerRight,
-          child: IconButton(
-            icon: const Icon(CupertinoIcons.back),
-            color: Colors.blue,
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ),
-        title: ChatAppBar(
-          link: messageData.profilePicture,
-          name: messageData.senderName,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Center(
-              child: IconButton(
-                icon: const Icon(CupertinoIcons.video_camera_solid),
-                onPressed: () {},
-                color: Colors.blue,
-              ),
+    return ViewModelBuilder<ChatScreenViewModel>.reactive(
+      viewModelBuilder: () => ChatScreenViewModel(),
+      builder: (context, model, _) {
+        return Scaffold(
+          appBar: ChatAppBar(
+              link: messageData.profilePicture, name: messageData.senderName,),
+          body: SafeArea(
+            top: true,
+            child: Column(
+              children: [
+                Expanded(
+                  child: _DemoMessageList(),
+                ),
+                BottomChat(),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Center(
-              child: IconButton(
-                icon: const Icon(CupertinoIcons.phone_solid),
-                onPressed: () {},
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: Column(
-        children: const [
-          Expanded(
-            child: _DemoMessageList(),
-          ),
-          BottomChat(),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -94,11 +63,9 @@ class _DemoMessageList extends StatelessWidget {
           ),
           SenderMsg(
             message: 'You know how it goes...',
-            
           ),
           ReceivedMsg(
             message: 'Do you want Starbucks?',
-            
           ),
           SenderMsg(
             message: 'Would be awesome!',
@@ -149,3 +116,44 @@ class _DateLable extends StatelessWidget {
     );
   }
 }
+
+/*AppBar(
+        iconTheme: Theme.of(context).iconTheme,
+        centerTitle: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leadingWidth: 54,
+        leading: Align(
+          alignment: Alignment.centerRight,
+          child: IconButton(
+            icon: const Icon(CupertinoIcons.back),
+            color: Colors.blue,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+        title: 
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Center(
+              child: IconButton(
+                icon: const Icon(CupertinoIcons.video_camera_solid),
+                onPressed: () {},
+                color: Colors.blue,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Center(
+              child: IconButton(
+                icon: const Icon(CupertinoIcons.phone_solid),
+                onPressed: () {},
+                color: Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      ),*/

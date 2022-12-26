@@ -34,11 +34,11 @@ class Avatar extends StatelessWidget {
     return Stack(
       children: [
         CircleAvatar(
-            radius: radius,
-            backgroundImage: CachedNetworkImageProvider(url),
-            backgroundColor: Theme.of(context).cardColor,
-          ),
-        Positioned(
+          radius: radius,
+          backgroundImage: CachedNetworkImageProvider(url),
+          backgroundColor: Theme.of(context).cardColor,
+        ),
+        /*Positioned(
           bottom: 0.0,
           right: 6.0,
           child: Container(
@@ -59,7 +59,7 @@ class Avatar extends StatelessWidget {
               ),
             ),
           ),
-        ),
+        ),*/
       ],
     );
   }

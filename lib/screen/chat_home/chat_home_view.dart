@@ -5,76 +5,85 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:socially/models/user_data.dart';
+import 'package:socially/screen/chat_home/chat_home_view_model.dart';
 import 'package:socially/widgets/message_item.dart';
 import 'package:socially/widgets/story_item.dart';
+import 'package:stacked/stacked.dart';
 
-import '../image_random.dart';
+import '../../image_random.dart';
 
-class MessageScreen extends StatefulWidget {
-  const MessageScreen({Key? key}) : super(key: key);
+class ChatHomeScreen extends StatefulWidget {
+  const ChatHomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<MessageScreen> createState() => _MessageScreenState();
+  State<ChatHomeScreen> createState() => _ChatHomeScreenState();
 }
 
-class _MessageScreenState extends State<MessageScreen> {
+class _ChatHomeScreenState extends State<ChatHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        //backgroundColor: Colors.white,
-        //foregroundColor: Colors.black,
-        title: const Text('Chats'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-                onPressed: () {},
-                icon: const Icon(CupertinoIcons.square_arrow_up)),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: Container(
-                height: 50,
-                margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                child: Center(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: Colors.blue,
-                      ),
-                      hintText: 'Search',
-                      fillColor: Colors.lightBlue[50],
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
+    return ViewModelBuilder<ChatHomeViewModel>.reactive(
+      viewModelBuilder: () => ChatHomeViewModel(),
+      builder: (context, model, _) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Socially'),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    CupertinoIcons.square_arrow_up,
+                  ),
+                ),
+              )
+            ],
+          ),
+          body: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Container(
+                    height: 50,
+                    margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                    child: Center(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: Colors.blue,
+                          ),
+                          hintText: 'Search',
+                          fillColor: Colors.lightBlue[50],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              width: 0,
+                              style: BorderStyle.none,
+                            ),
+                          ),
+                          filled: true,
+                          //contentPadding: EdgeInsets.all(20),
+                          hintStyle:
+                              TextStyle(fontSize: 17, color: Colors.black),
                         ),
                       ),
-                      filled: true,
-                      //contentPadding: EdgeInsets.all(20),
-                      hintStyle: TextStyle(fontSize: 17, color: Colors.black),
                     ),
                   ),
                 ),
-              ),
+                /*SliverToBoxAdapter(
+                  child: Stories(),
+                ),*/
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(_delegate),
+                )
+              ],
             ),
-            SliverToBoxAdapter(
-              child: Stories(),
-            ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(_delegate),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

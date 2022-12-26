@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:socially/models/user_data.dart';
-import 'package:socially/screen/chat_screen.dart';
+import 'package:socially/screen/chat_screen/chat_screen_view.dart';
 import 'package:socially/theme.dart';
 import 'package:socially/widgets/avatar.dart';
 
@@ -26,10 +26,10 @@ class MessageItem extends StatelessWidget {
         );
       },
       child: Container(
-        height: 100,
+        //height: 100,
         //decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey,width: 0.2,),),),
         child: Padding(
-          padding: const EdgeInsets.all(4.0),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               Padding(

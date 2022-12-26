@@ -2,8 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:socially/screen/login.dart';
-import 'package:socially/screen/messages.dart';
+import 'package:socially/screen/auth_screen/login/login_view.dart';
+import 'package:socially/screen/chat_home/chat_home_view.dart';
 import 'package:socially/theme.dart';
 
 class Home extends StatefulWidget {
@@ -16,10 +16,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-
     int _selectedIndex = 0;
     final List _children = [
-      MessageScreen(),
+      ChatHomeScreen(),
       LoginScreen(),
       Center(
         child: Text('Notification'),
@@ -36,41 +35,41 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
-        body: _children[_selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.grey,
-          //showSelectedLabels: false,
-          //showUnselectedLabels: false,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.chat_bubble_2,
-              ),
-              label: 'Massages',
+      body: _children[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Colors.grey,
+        //showSelectedLabels: false,
+        //showUnselectedLabels: false,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              CupertinoIcons.chat_bubble_2,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.alarm,
-              ),
-              label: 'Notification',
+            label: 'Massages',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              CupertinoIcons.alarm,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.bag_fill,
-              ),
-              label: 'Call',
+            label: 'Notification',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              CupertinoIcons.bag_fill,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.person,
-              ),
-              label: 'Profile',
+            label: 'Call',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              CupertinoIcons.person,
             ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          onTap: _onItemTapped,
-        ),
-      );
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
+      ),
+    );
   }
 }

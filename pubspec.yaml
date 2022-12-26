@@ -41,7 +41,15 @@ dependencies:
   english_words: ^4.0.0
   bouncing_widget: ^2.0.0
   delayed_display: ^2.0.0
+  firebase_core: ^2.4.0
   animate_do: ^2.1.0
+  device_preview: ^1.1.0
+  stacked: ^2.3.3
+  firebase_auth: ^4.2.1
+  cloud_firestore: ^4.2.0
+  firebase_storage: 
+  dio: ^4.0.6
+  grouped_list: ^5.1.2
   
   
 dev_dependencies:

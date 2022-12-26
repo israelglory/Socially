@@ -1,15 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:socially/screen/login.dart';
-import 'package:socially/screen/splash.dart';
+import 'package:socially/screen/chat_home/chat_home_view.dart';
+import 'package:socially/screen/chat_screen/chat_screen_view.dart';
+import 'package:socially/screen/splash/splash_view.dart';
 import 'package:socially/theme.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
-    .then((_) {
-      runApp(const MyApp());
-    });
+  if (!kIsWeb) {
+    await Firebase.initializeApp();
+  }
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]).then((_) {
+    runApp(const MyApp()
+        /*DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (context) => const MyApp(), // Wrap your app
+      ),*/
+        );
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -23,8 +35,8 @@ class MyApp extends StatelessWidget {
       title: 'Socially',
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
-      //themeMode: ThemeMode.dark,
-      home: const SplashScreen(),
+      //themeMode: ThemeMode.light,
+      home: const ChatHomeScreen(),
     );
   }
 }
