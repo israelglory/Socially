@@ -4,13 +4,12 @@ import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:socially/models/user_data.dart';
+import 'package:socially/models/message_model.dart';
 import 'package:socially/screen/chat_home/chat_home_view_model.dart';
+import 'package:socially/utils/utils.dart';
 import 'package:socially/widgets/message_item.dart';
 import 'package:socially/widgets/story_item.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../image_random.dart';
 
 class ChatHomeScreen extends StatefulWidget {
   const ChatHomeScreen({Key? key}) : super(key: key);
@@ -90,10 +89,10 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
 
 Widget _delegate(BuildContext context, int index) {
   final Faker faker = Faker();
-  final date = Helpers.randomDate();
+  final date = randomDate();
 
   var human = faker.person.name();
-  var pic = Helpers.randomPictureUrl();
+  var pic = randomPictureUrl();
 
   return MessageItem(
     messageData: MessageData(
@@ -157,7 +156,7 @@ class Stories extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: StoryItem(
-                      link: Helpers.randomPictureUrl(),
+                      link: randomPictureUrl(),
                       name: faker.person.lastName(),
                     ),
                   );

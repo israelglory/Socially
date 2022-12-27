@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:socially/models/user_data.dart';
+import 'package:socially/models/message_model.dart';
 import 'package:socially/screen/chat_screen/chat_screen_viewmodel.dart';
 import 'package:socially/theme.dart';
 import 'package:socially/widgets/bottom_chat.dart';
@@ -30,7 +30,9 @@ class ChatScreen extends StatelessWidget {
       builder: (context, model, _) {
         return Scaffold(
           appBar: ChatAppBar(
-              link: messageData.profilePicture, name: messageData.senderName,),
+            link: messageData.profilePicture,
+            name: messageData.senderName,
+          ),
           body: SafeArea(
             top: true,
             child: Column(

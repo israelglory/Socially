@@ -91,25 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             Icons.person,
                                             color: Colors.blue,
                                           ),
-                                          hintText: "First Name",
-                                          hintStyle:
-                                              TextStyle(color: Colors.grey),
-                                          border: InputBorder.none),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                color: Colors.grey.shade200))),
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                          prefixIcon: Icon(
-                                            Icons.person,
-                                            color: Colors.blue,
-                                          ),
-                                          hintText: "Last Name",
+                                          hintText: "Full Name",
                                           hintStyle:
                                               TextStyle(color: Colors.grey),
                                           border: InputBorder.none),
