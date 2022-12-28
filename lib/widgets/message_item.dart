@@ -1,7 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:socially/models/message_model.dart';
 import 'package:socially/models/user_model.dart';
 import 'package:socially/screen/chat_screen/chat_screen_view.dart';
 import 'package:socially/theme.dart';

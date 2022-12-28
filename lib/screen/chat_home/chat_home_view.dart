@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:socially/constants/firebase_constants.dart';
 import 'package:socially/exports.dart';
-import 'package:socially/models/message_model.dart';
 import 'package:socially/models/user_model.dart';
 import 'package:socially/screen/all_users/user_list_view.dart';
 import 'package:socially/screen/chat_home/chat_home_view_model.dart';

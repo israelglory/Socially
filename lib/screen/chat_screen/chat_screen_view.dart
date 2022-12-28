@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:socially/models/message_model.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:socially/models/message_chat.dart';
 import 'package:socially/models/user_model.dart';
 import 'package:socially/screen/chat_screen/chat_screen_viewmodel.dart';
 import 'package:socially/theme.dart';
@@ -41,10 +43,68 @@ class ChatScreen extends StatelessWidget {
             top: true,
             child: Column(
               children: [
-                Expanded(
+                /*Expanded(
                   child: _DemoMessageList(),
+                ),*/
+                Flexible(
+                  child: model.groupChatId.isNotEmpty
+                      ? StreamBuilder<QuerySnapshot>(
+                          stream: model.chatService
+                              .getChatStream(model.groupChatId, model.limit),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasData) {
+                              model.listMessage = snapshot.data!.docs;
+                              if (model.listMessage.length > 0) {
+                                return ListView.separated(
+                                  padding: const EdgeInsets.all(10),
+                                  itemBuilder: (context, index) {
+                                    MessageChat messageChat =
+                                        MessageChat.fromDocument(snapshot.data
+                                            ?.docs[index] as DocumentSnapshot);
+                                    final time = Jiffy(messageChat.timestamp)
+                                        .format('h:mm a');
+                                    return TextMessage(
+                                      isUser: messageChat.idFrom ==
+                                          model.currentUserId,
+                                      message: messageChat.content,
+                                      time: time,
+                                    );
+                                  },
+                                  itemCount: snapshot.data!.docs.length,
+                                  reverse: true,
+                                  controller: model.listScrollController,
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return const SizedBox(
+                                      height: 5,
+                                    );
+                                  },
+                                );
+                              } else {
+                                return const Center(
+                                  child: Text(
+                                    "No message here yet...",
+                                  ),
+                                );
+                              }
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          },
+                        )
+                      : const Center(
+                          child: CircularProgressIndicator(),
+                        ),
                 ),
-                BottomChat(),
+                BottomChat(
+                  onPressed: () {
+                    model.onSendMessage(model.textEditingController.text, 0);
+                  },
+                  txt: model.textEditingController,
+                ),
               ],
             ),
           ),

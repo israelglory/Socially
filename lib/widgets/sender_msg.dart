@@ -75,6 +75,8 @@ class TextMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = (brightness == Brightness.dark);
     return Row(
       mainAxisAlignment:
           isUser == true ? MainAxisAlignment.end : MainAxisAlignment.start,
@@ -132,7 +134,15 @@ class TextMessage extends StatelessWidget {
                             }
                           }
                         },
-                        //style: Theme.of(context).textTheme.bodyMedium,
+                        style: isDarkMode && isUser == false
+                            ? TextStyle(
+                                color: Colors.white,
+                              )
+                            : !isDarkMode && isUser == false
+                                ? TextStyle(
+                                    color: Colors.black,
+                                  )
+                                : TextStyle(color: Colors.white),
                         expandText: 'Read More',
                         maxLines: 4,
                         linkStyle: const TextStyle(
@@ -154,11 +164,16 @@ class TextMessage extends StatelessWidget {
                       children: [
                         Text(
                           time,
-                          style: const TextStyle(
-                            color: AppColors.textFaded,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: isDarkMode && isUser == false
+                              ? TextStyle(color: Colors.white, fontSize: 10)
+                              : !isDarkMode && isUser == false
+                                  ? TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 10,
+                                    )
+                                  : TextStyle(
+                                      color: Colors.grey.shade200,
+                                      fontSize: 10),
                         ),
                       ],
                     ),

@@ -17,8 +17,8 @@ class ChatScreenViewModel extends BaseViewModel {
 
   List<QueryDocumentSnapshot> listMessage = [];
   String peerId = '';
-  int _limit = 20;
-  int _limitIncrement = 20;
+  int limit = 20;
+  int limitIncrement = 20;
   String groupChatId = "";
 
   File? imageFile;
@@ -26,8 +26,8 @@ class ChatScreenViewModel extends BaseViewModel {
   bool isShowSticker = false;
   String imageUrl = "";
 
-  void initState(String peerId) {
-    peerId = peerId;
+  void initState(String initpeerId) {
+    peerId = initpeerId;
     print(peerId);
     focusNode.addListener(onFocusChange);
     listScrollController.addListener(_scrollListener);
@@ -35,13 +35,37 @@ class ChatScreenViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  /*void onSendMessage(String content, int type) {
+    if (content.trim().isNotEmpty) {
+      textEditingController.clear();
+      chatService.sendMessage(
+        content,
+        type,
+        groupChatId,
+        currentUserId,
+        peerId,
+      );
+      if (listScrollController.hasClients) {
+        listScrollController.animateTo(0,
+            duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
+      }
+    } else {
+      Get.snackbar(
+        'Error',
+        'Nothing to send',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }*/
+
   _scrollListener() {
     if (!listScrollController.hasClients) return;
     if (listScrollController.offset >=
             listScrollController.position.maxScrollExtent &&
         !listScrollController.position.outOfRange &&
-        _limit <= listMessage.length) {
-      _limit += _limitIncrement;
+        limit <= listMessage.length) {
+      limit += limitIncrement;
       notifyListeners();
     }
   }

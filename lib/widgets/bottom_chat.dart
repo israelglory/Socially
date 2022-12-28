@@ -2,14 +2,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 class BottomChat extends StatelessWidget {
-  const BottomChat({Key? key}) : super(key: key);
+  final Function() onPressed;
+  final TextEditingController txt;
+  const BottomChat({Key? key, required this.onPressed, required this.txt})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController txt = TextEditingController();
     return SafeArea(
       bottom: true,
       top: false,
@@ -45,14 +45,17 @@ class BottomChat extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 12,
-              right: 24.0,
-            ),
-            child: Icon(
-              Icons.send_rounded,
-              color: Colors.blue,
+          InkWell(
+            onTap: onPressed,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 12,
+                right: 24.0,
+              ),
+              child: Icon(
+                Icons.send_rounded,
+                color: Colors.blue,
+              ),
             ),
           ),
         ],
