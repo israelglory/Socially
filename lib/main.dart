@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light(),
       darkTheme: AppTheme.dark(),
       //themeMode: ThemeMode.light,
-      home: const ChatHomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -27,6 +27,9 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ChatScreenViewModel>.reactive(
       viewModelBuilder: () => ChatScreenViewModel(),
+      onModelReady: (model) {
+        model.initState('');
+      },
       builder: (context, model, _) {
         return Scaffold(
           appBar: ChatAppBar(

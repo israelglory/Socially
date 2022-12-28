@@ -39,11 +39,15 @@ dependencies:
   jiffy:
   provider:
   english_words: ^4.0.0
+  image_cropper: ^2.0.2
+  image_picker: ^0.8.5+2
   bouncing_widget: ^2.0.0
   delayed_display: ^2.0.0
   firebase_core: ^2.4.0
+  expandable_text: ^2.3.0
   animate_do: ^2.1.0
   device_preview: ^1.1.0
+  fluttertoast: ^8.1.2
   stacked: ^2.3.3
   firebase_auth: ^4.2.1
   cloud_firestore: ^4.2.0

@@ -5,62 +5,59 @@ class Avatar extends StatelessWidget {
   const Avatar({
     Key? key,
     required this.url,
-    required this.radius,
+    required this.height,
+    required this.width,
   }) : super(key: key);
 
   const Avatar.small({
     Key? key,
     required this.url,
-  })  : radius = 16,
+  })  : height = 32,
+        width = 32,
         super(key: key);
 
   const Avatar.medium({
     Key? key,
     required this.url,
-  })  : radius = 22,
+  })  : height = 44,
+        width = 44,
         super(key: key);
 
   const Avatar.large({
     Key? key,
     required this.url,
-  })  : radius = 30,
+  })  : height = 60,
+        width = 60,
+        super(key: key);
+  const Avatar.largest({
+    Key? key,
+    required this.url,
+  })  : height = 90,
+        width = 90,
         super(key: key);
 
-  final double radius;
+  final double height;
+  final double width;
   final String url;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        CircleAvatar(
-          radius: radius,
-          backgroundImage: CachedNetworkImageProvider(url),
-          backgroundColor: Theme.of(context).cardColor,
-        ),
-        /*Positioned(
-          bottom: 0.0,
-          right: 6.0,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(6),
-            ),
-            height: 11,
-            width: 11,
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.greenAccent,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                height: 10,
-                width: 10,
-              ),
-            ),
-          ),
-        ),*/
-      ],
+    return ClipOval(
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: url.startsWith("http") || url.startsWith("https")
+            ? CachedNetworkImage(
+                imageUrl: url,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) {
+                  return Image.asset('assets/images/placeholderDp.jpg');
+                },
+              )
+            : Image.asset('images/placeholderDp.jpg'),
+      ),
     );
   }
 }

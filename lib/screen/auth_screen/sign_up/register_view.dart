@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:socially/constants/app_colors.dart';
+import 'package:socially/screen/auth_screen/login/login_view.dart';
 import 'package:socially/screen/auth_screen/sign_up/register_viewmodel.dart';
 import 'package:socially/screen/chat_home/chat_home_view.dart';
+import 'package:socially/widgets/avatar.dart';
 import 'package:stacked/stacked.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -36,17 +40,66 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      const Text(
-                        "Register",
-                        style: TextStyle(color: Colors.white, fontSize: 40),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Join this big community",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "Register",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 40),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Join this big community",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              model.pickImage();
+                            },
+                            child: Center(
+                              child: Stack(
+                                children: [
+                                  model.pickedImage == null
+                                      ? Avatar.largest(
+                                          url: '',
+                                        )
+                                      : CircleAvatar(
+                                          radius: 45,
+                                          backgroundImage: FileImage(
+                                            model.pickedImage!,
+                                          ),
+                                        ),
+                                  Positioned(
+                                    bottom: 0.0,
+                                    right: 0.0,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: AppColors.primaryColor,
+                                          shape: BoxShape.circle),
+                                      padding: const EdgeInsets.all(5.0),
+                                      child: const Icon(
+                                        Icons.camera_alt_outlined,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -86,6 +139,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey.shade200))),
                                     child: TextField(
+                                      controller: model.fullNameController,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.person,
@@ -104,6 +158,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey.shade200))),
                                     child: TextField(
+                                      controller: model.userNameController,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.supervised_user_circle,
@@ -122,6 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey.shade200))),
                                     child: TextField(
+                                      controller: model.emailController,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.email,
@@ -140,24 +196,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey.shade200))),
                                     child: TextField(
-                                      obscureText: show,
+                                      controller: model.passController,
+                                      obscureText: model.show,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.lock,
                                             color: Colors.blue,
                                           ),
-                                          suffixIcon: InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                if (show = true) {
-                                                  show = false;
-                                                } else {
-                                                  show = true;
-                                                }
-                                              });
-                                            },
-                                            child: Icon(Icons.remove_red_eye),
-                                          ),
+                                          suffixIcon: model.show == true
+                                              ? InkWell(
+                                                  onTap: () {
+                                                    model.onObscure();
+                                                  },
+                                                  child: const Icon(
+                                                    CupertinoIcons.eye_fill,
+                                                  ))
+                                              : InkWell(
+                                                  onTap: () {
+                                                    model.onhide();
+                                                  },
+                                                  child: const Icon(
+                                                    CupertinoIcons
+                                                        .eye_slash_fill,
+                                                  ),
+                                                ),
                                           hintText: "Password",
                                           hintStyle:
                                               TextStyle(color: Colors.grey),
@@ -172,12 +234,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const ChatHomeScreen();
-                                  }),
-                                );
+                                model.signUp(context);
                               },
                               child: Container(
                                 height: 50,
@@ -186,12 +243,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     borderRadius: BorderRadius.circular(50),
                                     color: Colors.blue),
                                 child: Center(
-                                  child: Text(
-                                    "Register",
-                                    style: TextStyle(
+                                  child: Visibility(
+                                    visible: !model.inProgress,
+                                    replacement: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: CircularProgressIndicator(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Register",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()));
+                              },
+                              child: Container(
+                                child: Text(
+                                  "Login Instead",
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 18),
                                 ),
                               ),
                             ),

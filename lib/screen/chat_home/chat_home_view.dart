@@ -4,7 +4,10 @@ import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:socially/constants/firebase_constants.dart';
+import 'package:socially/exports.dart';
 import 'package:socially/models/message_model.dart';
+import 'package:socially/models/user_model.dart';
 import 'package:socially/screen/chat_home/chat_home_view_model.dart';
 import 'package:socially/utils/utils.dart';
 import 'package:socially/widgets/message_item.dart';
@@ -22,6 +25,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ChatHomeViewModel>.reactive(
+      onModelReady: (model) {
+        model.initState();
+      },
       viewModelBuilder: () => ChatHomeViewModel(),
       builder: (context, model, _) {
         return Scaffold(
@@ -31,7 +37,9 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    model.logOut(context);
+                  },
                   icon: const Icon(
                     CupertinoIcons.square_arrow_up,
                   ),
@@ -39,47 +47,88 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
               )
             ],
           ),
-          body: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-            child: CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: Container(
-                    height: 50,
-                    margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
-                    child: Center(
-                      child: TextField(
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.blue,
-                          ),
-                          hintText: 'Search',
-                          fillColor: Colors.lightBlue[50],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ),
-                          ),
-                          filled: true,
-                          //contentPadding: EdgeInsets.all(20),
-                          hintStyle:
-                              TextStyle(fontSize: 17, color: Colors.black),
+          body: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Container(
+                  height: 50,
+                  margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
+                  child: Center(
+                    child: TextField(
+                      controller: model.textEditingController,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: Colors.blue,
                         ),
+                        hintText: 'Search',
+                        fillColor: Colors.lightBlue[50],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        //contentPadding: EdgeInsets.all(20),
+                        hintStyle: TextStyle(fontSize: 17, color: Colors.black),
                       ),
                     ),
                   ),
                 ),
-                /*SliverToBoxAdapter(
-                  child: Stories(),
-                ),*/
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(_delegate),
-                )
-              ],
-            ),
+              ),
+              /*SliverToBoxAdapter(
+                child: Stories(),
+              ),*/
+              SliverToBoxAdapter(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: model.getStreamFireStore(
+                      FirestoreConstants.pathUserCollection),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      if ((snapshot.data?.docs.length ?? 0) > 0) {
+                        return ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.all(10),
+                          itemBuilder: (context, index) {
+                            UserModel userChat = UserModel.fromFirestore(
+                                snapshot.data!.docs[index]);
+                            return MessageItem(
+                              messageData: MessageData(
+                                senderName: userChat.fullName,
+                                message: '',
+                                messageDate: DateTime.now(),
+                                dateMessage: '',
+                                profilePicture: userChat.avatar,
+                              ),
+                            );
+                          },
+                          itemCount: snapshot.data!.docs.length,
+                          controller: model.listScrollController,
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider();
+                          },
+                        );
+                      } else {
+                        return Center(
+                          child: Text("No users"),
+                        );
+                      }
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+                /*SliverList(
+                delegate: SliverChildBuilderDelegate(_delegate),
+              )*/
+              ),
+            ],
           ),
         );
       },

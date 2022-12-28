@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:socially/screen/auth_screen/login/login_viewmodel.dart';
 
@@ -81,9 +82,10 @@ class LoginScreen extends StatelessWidget {
                                             bottom: BorderSide(
                                                 color: Colors.grey.shade200))),
                                     child: TextField(
+                                      controller: model.emailController,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.person),
-                                          hintText: "Email or Phone number",
+                                          hintText: "Email address",
                                           hintStyle:
                                               TextStyle(color: Colors.grey),
                                           border: InputBorder.none),
@@ -96,12 +98,30 @@ class LoginScreen extends StatelessWidget {
                                             bottom: BorderSide(
                                                 color: Colors.grey.shade200))),
                                     child: TextField(
-                                      obscureText: true,
+                                      controller: model.passController,
+                                      obscureText: model.show,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.lock,
                                             color: Colors.blue,
                                           ),
+                                          suffixIcon: model.show == true
+                                              ? InkWell(
+                                                  onTap: () {
+                                                    model.onObscure();
+                                                  },
+                                                  child: const Icon(
+                                                    CupertinoIcons.eye_fill,
+                                                  ))
+                                              : InkWell(
+                                                  onTap: () {
+                                                    model.onhide();
+                                                  },
+                                                  child: const Icon(
+                                                    CupertinoIcons
+                                                        .eye_slash_fill,
+                                                  ),
+                                                ),
                                           hintText: "Password",
                                           hintStyle:
                                               TextStyle(color: Colors.grey),
@@ -123,12 +143,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (context) {
-                                    return const ChatHomeScreen();
-                                  }),
-                                );
+                                model.login(context);
                               },
                               child: Container(
                                 height: 50,
@@ -137,11 +152,20 @@ class LoginScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(50),
                                     color: Colors.blue),
                                 child: Center(
-                                  child: Text(
-                                    "Login",
-                                    style: TextStyle(
+                                  child: Visibility(
+                                    visible: !model.inProgress,
+                                    replacement: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: CircularProgressIndicator(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Login",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                 ),
                               ),

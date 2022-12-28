@@ -25,6 +25,7 @@ class UserAuth {
       'userName': userName,
       'avatar': avatar,
       'email': email,
+      'uid': FirebaseAuth.instance.currentUser!.uid,
       'passWord': password,
     });
   }
@@ -38,22 +39,6 @@ class UserAuth {
       email: email,
       password: password,
     );
-  }
-
-  ///Registering with Email is done here in this function. Passing the required parameter will sign user up in the application.
-  Future<void> accountSetting({
-    required String email,
-    required String firstName,
-    required String lastName,
-    required String accountNumber,
-  }) async {
-    await _firestore.collection('accounts').doc(accountNumber).set({
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'accountNumber': accountNumber,
-      'uid': FirebaseAuth.instance.currentUser!.uid,
-    });
   }
 
   Future<UserModel> userData() async {
