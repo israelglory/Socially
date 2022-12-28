@@ -28,6 +28,7 @@ class ChatScreenViewModel extends BaseViewModel {
 
   void initState(String peerId) {
     peerId = peerId;
+    print(peerId);
     focusNode.addListener(onFocusChange);
     listScrollController.addListener(_scrollListener);
     readLocal();

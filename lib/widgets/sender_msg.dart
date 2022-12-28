@@ -132,10 +132,7 @@ class TextMessage extends StatelessWidget {
                             }
                           }
                         },
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                        ),
+                        //style: Theme.of(context).textTheme.bodyMedium,
                         expandText: 'Read More',
                         maxLines: 4,
                         linkStyle: const TextStyle(
@@ -149,16 +146,19 @@ class TextMessage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
+                      top: 10,
                       right: 10.0,
                       bottom: 10.0,
                     ),
                     child: Row(
                       children: [
-                        AppText(
+                        Text(
                           time,
-                          color: Colors.white,
-                          size: 10,
-                          fontWeight: FontWeight.w400,
+                          style: const TextStyle(
+                            color: AppColors.textFaded,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),

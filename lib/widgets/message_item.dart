@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:socially/models/message_model.dart';
+import 'package:socially/models/user_model.dart';
 import 'package:socially/screen/chat_screen/chat_screen_view.dart';
 import 'package:socially/theme.dart';
 import 'package:socially/widgets/avatar.dart';
@@ -9,10 +10,10 @@ import 'package:socially/widgets/avatar.dart';
 class MessageItem extends StatelessWidget {
   const MessageItem({
     Key? key,
-    required this.messageData,
+    required this.userModel,
   }) : super(key: key);
 
-  final MessageData messageData;
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class MessageItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) {
-            return ChatScreen(messageData: messageData);
+            return ChatScreen(userModel: userModel);
           }),
         );
       },
@@ -34,7 +35,7 @@ class MessageItem extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Avatar.large(url: messageData.profilePicture),
+                child: Avatar.large(url: userModel.avatar),
               ),
               Expanded(
                 child: Column(
@@ -44,7 +45,7 @@ class MessageItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        messageData.senderName,
+                        userModel.fullName,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           letterSpacing: 0.2,
@@ -53,12 +54,12 @@ class MessageItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                       child: Text(
-                        messageData.message,
+                        'Hiii, How\'ve ou been',
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
                           color: AppColors.textFaded,
                         ),
@@ -77,7 +78,7 @@ class MessageItem extends StatelessWidget {
                       height: 4,
                     ),
                     Text(
-                      messageData.dateMessage.toUpperCase(),
+                      '2:33',
                       style: const TextStyle(
                         fontSize: 11,
                         letterSpacing: -0.2,

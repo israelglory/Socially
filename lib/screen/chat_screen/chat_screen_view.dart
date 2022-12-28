@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:socially/models/message_model.dart';
+import 'package:socially/models/user_model.dart';
 import 'package:socially/screen/chat_screen/chat_screen_viewmodel.dart';
 import 'package:socially/theme.dart';
 import 'package:socially/widgets/bottom_chat.dart';
@@ -14,12 +15,12 @@ import 'package:stacked/stacked.dart';
 class ChatScreen extends StatelessWidget {
   const ChatScreen({
     Key? key,
-    required this.messageData,
+    required this.userModel,
     //required this.link,
     //required this.name,
   }) : super(key: key);
 
-  final MessageData messageData;
+  final UserModel userModel;
   //String link;
   //String name;
 
@@ -28,13 +29,13 @@ class ChatScreen extends StatelessWidget {
     return ViewModelBuilder<ChatScreenViewModel>.reactive(
       viewModelBuilder: () => ChatScreenViewModel(),
       onModelReady: (model) {
-        model.initState('');
+        model.initState(userModel.uid);
       },
       builder: (context, model, _) {
         return Scaffold(
           appBar: ChatAppBar(
-            link: messageData.profilePicture,
-            name: messageData.senderName,
+            link: userModel.avatar,
+            name: userModel.fullName,
           ),
           body: SafeArea(
             top: true,
@@ -75,6 +76,10 @@ class _DemoMessageList extends StatelessWidget {
           SenderMsg(
             message: 'Would be awesome!',
           ),
+          TextMessage(
+              isUser: true,
+              message: 'Hello this my new widget',
+              time: '2:00 PM'),
           ReceivedMsg(
             message: 'Coming up!',
           ),

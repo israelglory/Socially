@@ -8,6 +8,7 @@ import 'package:socially/constants/firebase_constants.dart';
 import 'package:socially/exports.dart';
 import 'package:socially/models/message_model.dart';
 import 'package:socially/models/user_model.dart';
+import 'package:socially/screen/all_users/user_list_view.dart';
 import 'package:socially/screen/chat_home/chat_home_view_model.dart';
 import 'package:socially/utils/utils.dart';
 import 'package:socially/widgets/message_item.dart';
@@ -97,13 +98,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                             UserModel userChat = UserModel.fromFirestore(
                                 snapshot.data!.docs[index]);
                             return MessageItem(
-                              messageData: MessageData(
-                                senderName: userChat.fullName,
-                                message: '',
-                                messageDate: DateTime.now(),
-                                dateMessage: '',
-                                profilePicture: userChat.avatar,
-                              ),
+                              userModel: userChat,
                             );
                           },
                           itemCount: snapshot.data!.docs.length,
@@ -130,13 +125,25 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
               ),
             ],
           ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return const UserListView();
+                }),
+              );
+            },
+            tooltip: 'Users',
+            child: const Icon(Icons.message_rounded),
+          ),
         );
       },
     );
   }
 }
 
-Widget _delegate(BuildContext context, int index) {
+/*Widget _delegate(BuildContext context, int index) {
   final Faker faker = Faker();
   final date = randomDate();
 
@@ -144,15 +151,9 @@ Widget _delegate(BuildContext context, int index) {
   var pic = randomPictureUrl();
 
   return MessageItem(
-    messageData: MessageData(
-      senderName: human,
-      message: faker.lorem.sentence(),
-      messageDate: date,
-      dateMessage: Jiffy(date).fromNow(),
-      profilePicture: pic,
-    ),
+    userModel: ,
   );
-}
+}*/
 
 class Stories extends StatelessWidget {
   const Stories({

@@ -5,7 +5,7 @@ import 'package:socially/screen/auth_screen/login/login_view.dart';
 import 'package:socially/services/user_service/user_auth.dart';
 import 'package:stacked/stacked.dart';
 
-class ChatHomeViewModel extends BaseViewModel {
+class UserListViewModel extends BaseViewModel {
   final UserAuth userAuth = UserAuth();
   TextEditingController textEditingController = TextEditingController();
   final firebaseFirestore = FirebaseFirestore.instance;
