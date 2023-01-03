@@ -18,8 +18,6 @@ class ChatScreen extends StatelessWidget {
   const ChatScreen({
     Key? key,
     required this.userModel,
-    //required this.link,
-    //required this.name,
   }) : super(key: key);
 
   final UserModel userModel;
@@ -31,13 +29,13 @@ class ChatScreen extends StatelessWidget {
     return ViewModelBuilder<ChatScreenViewModel>.reactive(
       viewModelBuilder: () => ChatScreenViewModel(),
       onModelReady: (model) {
-        model.initState(userModel.uid);
+        model.initState(userModel.uid!);
       },
       builder: (context, model, _) {
         return Scaffold(
           appBar: ChatAppBar(
-            link: userModel.avatar,
-            name: userModel.fullName,
+            userModel: userModel,
+            chatId: model.groupChatId,
           ),
           body: SafeArea(
             top: true,

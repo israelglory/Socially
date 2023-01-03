@@ -34,7 +34,7 @@ class UserItem extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-                child: Avatar.large(url: userModel.avatar),
+                child: Avatar.large(url: userModel.avatar!),
               ),
               Expanded(
                 child: Column(
@@ -44,7 +44,7 @@ class UserItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Text(
-                        userModel.fullName,
+                        userModel.fullName!,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                           letterSpacing: 0.2,
@@ -56,7 +56,7 @@ class UserItem extends StatelessWidget {
                     SizedBox(
                       height: 20,
                       child: Text(
-                        userModel.userName,
+                        userModel.userName!,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

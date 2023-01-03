@@ -55,6 +55,7 @@ dependencies:
   dio: ^4.0.6
   grouped_list: ^5.1.2
   url_launcher: ^6.1.4
+  zego_uikit_prebuilt_call: ^1.2.14
   
   
 dev_dependencies:

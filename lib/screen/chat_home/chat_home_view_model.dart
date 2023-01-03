@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:socially/constants/firebase_constants.dart';
 import 'package:socially/exports.dart';
+import 'package:socially/models/user_model.dart';
 import 'package:socially/screen/auth_screen/login/login_view.dart';
 import 'package:socially/services/user_service/user_auth.dart';
 import 'package:stacked/stacked.dart';
@@ -14,9 +15,11 @@ class ChatHomeViewModel extends BaseViewModel {
   int _limit = 20;
   int _limitIncrement = 20;
   final ScrollController listScrollController = ScrollController();
+  UserModel user = UserModel();
 
-  void initState() {
+  Future<void> initState() async {
     listScrollController.addListener(scrollListener);
+    await userData();
   }
 
   void logOut(BuildContext context) async {
@@ -26,6 +29,18 @@ class ChatHomeViewModel extends BaseViewModel {
       MaterialPageRoute(
         builder: (context) => const LoginScreen(),
       ),
+    );
+  }
+
+  Future<void> userData() async {
+    final userinfo = await UserAuth().getUserData();
+
+    user = UserModel(
+      avatar: userinfo['avatar'],
+      email: userinfo['email'],
+      fullName: userinfo['fullName'],
+      uid: userinfo['uid'],
+      userName: userinfo['userName'],
     );
   }
 

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:socially/models/user_model.dart';
+import 'package:socially/screen/video_call/video_call_screen.dart';
 import 'package:socially/screen/chat_screen/chat_screen_viewmodel.dart';
+import 'package:socially/screen/voice_call/voice_call_screen.dart';
 import 'package:socially/widgets/app_text.dart';
 
 import 'package:socially/widgets/avatar.dart';
@@ -9,14 +12,15 @@ import 'package:stacked/stacked.dart';
 class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
   const ChatAppBar({
     Key? key,
-    //required this.messageData,
-    required this.link,
-    required this.name,
+    required this.chatId,
+    required this.userModel,
   }) : super(key: key);
 
   // final MessageData messageData;
-  final String link;
-  final String name;
+
+  final String chatId;
+
+  final UserModel userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +55,7 @@ class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
               },
             ),
             Avatar.medium(
-              url: link,
+              url: userModel.avatar!,
             ),
             const SizedBox(
               width: 16,
@@ -62,7 +66,7 @@ class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    userModel.fullName!,
                     style: Theme.of(context).textTheme.headline1,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -75,7 +79,17 @@ class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Center(
                 child: IconButton(
                   icon: const Icon(CupertinoIcons.video_camera_solid),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return VideoPage(
+                          chatId: chatId,
+                          userModel: userModel,
+                        );
+                      }),
+                    );
+                  },
                   color: Colors.blue,
                 ),
               ),
@@ -85,7 +99,17 @@ class ChatAppBar extends StatelessWidget with PreferredSizeWidget {
               child: Center(
                 child: IconButton(
                   icon: const Icon(CupertinoIcons.phone_solid),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return VoicePage(
+                          chatId: chatId,
+                          userModel: userModel,
+                        );
+                      }),
+                    );
+                  },
                   color: Colors.blue,
                 ),
               ),
