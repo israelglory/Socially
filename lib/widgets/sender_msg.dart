@@ -71,7 +71,7 @@ class TextMessage extends StatelessWidget {
     required this.message,
     required this.time,
   }) : super(key: key);
-  static const _borderRadius = 26.0;
+  static const _borderRadius = 10.0;
 
   @override
   Widget build(BuildContext context) {
@@ -135,14 +135,14 @@ class TextMessage extends StatelessWidget {
                           }
                         },
                         style: isDarkMode && isUser == false
-                            ? TextStyle(
+                            ? const TextStyle(
                                 color: Colors.white,
                               )
                             : !isDarkMode && isUser == false
-                                ? TextStyle(
+                                ? const TextStyle(
                                     color: Colors.black,
                                   )
-                                : TextStyle(color: Colors.white),
+                                : const TextStyle(color: Colors.white),
                         expandText: 'Read More',
                         maxLines: 4,
                         linkStyle: const TextStyle(
@@ -156,7 +156,7 @@ class TextMessage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      top: 10,
+                      top: 0,
                       right: 10.0,
                       bottom: 10.0,
                     ),
@@ -165,9 +165,10 @@ class TextMessage extends StatelessWidget {
                         Text(
                           time,
                           style: isDarkMode && isUser == false
-                              ? TextStyle(color: Colors.white, fontSize: 10)
+                              ? const TextStyle(
+                                  color: Colors.white, fontSize: 10)
                               : !isDarkMode && isUser == false
-                                  ? TextStyle(
+                                  ? const TextStyle(
                                       color: Colors.black87,
                                       fontSize: 10,
                                     )
