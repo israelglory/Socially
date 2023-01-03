@@ -2,7 +2,6 @@ import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:socially/theme.dart';
 import 'package:socially/utils/utils.dart';
-import 'package:socially/widgets/app_text.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class SenderMsg extends StatelessWidget {

@@ -32,6 +32,8 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
       builder: (context, model, _) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Theme.of(context).backgroundColor,
+            elevation: 5,
             title: const Text('Socially'),
             actions: [
               Padding(
@@ -49,7 +51,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
           ),
           body: CustomScrollView(
             slivers: [
-              SliverToBoxAdapter(
+              /*SliverToBoxAdapter(
                 child: Container(
                   height: 50,
                   margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
@@ -78,7 +80,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                   ),
                 ),
               ),
-              /*SliverToBoxAdapter(
+              SliverToBoxAdapter(
                 child: Stories(),
               ),*/
               SliverToBoxAdapter(

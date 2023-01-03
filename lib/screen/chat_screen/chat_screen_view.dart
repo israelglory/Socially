@@ -55,7 +55,7 @@ class ChatScreen extends StatelessWidget {
                               AsyncSnapshot<QuerySnapshot> snapshot) {
                             if (snapshot.hasData) {
                               model.listMessage = snapshot.data!.docs;
-                              if (model.listMessage.length > 0) {
+                              if (model.listMessage.isNotEmpty) {
                                 return ListView.separated(
                                   padding: const EdgeInsets.all(10),
                                   itemBuilder: (context, index) {
