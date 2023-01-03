@@ -99,9 +99,11 @@ class TextMessage extends StatelessWidget {
                     topRight: isUser == true
                         ? const Radius.circular(0.0)
                         : const Radius.circular(_borderRadius)),
-                color: isUser == true
+                color: isUser
                     ? AppColors.secondary
-                    : Theme.of(context).cardColor,
+                    : !isUser && !isDarkMode
+                        ? const Color(0xFFF9FAFE)
+                        : Theme.of(context).cardColor,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -174,7 +176,8 @@ class TextMessage extends StatelessWidget {
                                     )
                                   : TextStyle(
                                       color: Colors.grey.shade200,
-                                      fontSize: 10),
+                                      fontSize: 10,
+                                    ),
                         ),
                       ],
                     ),

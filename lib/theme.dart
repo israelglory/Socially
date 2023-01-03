@@ -10,7 +10,7 @@ abstract class AppColors {
   static const iconLight = Color(0xFFB1B4C0);
   static const iconDark = Color(0xFFB1B3C1);
   static const textHighlight = secondary;
-  static const cardLight = Color(0xFFF9FAFE);
+  static const cardLight = Color.fromARGB(255, 227, 228, 232);
   static const cardDark = Color(0xFF303334);
 }
 
@@ -36,8 +36,8 @@ class AppTheme {
   static ThemeData light() => ThemeData(
         brightness: Brightness.light,
         visualDensity: visualDensity,
-       // textTheme:
-            //GoogleFonts.mulishTextTheme().apply(bodyColor: AppColors.textDark),
+        // textTheme:
+        //GoogleFonts.mulishTextTheme().apply(bodyColor: AppColors.textDark),
         backgroundColor: _LightColors.background,
         scaffoldBackgroundColor: _LightColors.background,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -49,7 +49,10 @@ class AppTheme {
           foregroundColor: Colors.black,
         ),
         textTheme: const TextTheme(
-          headline1: TextStyle(color: AppColors.textDark, fontSize: 15, fontWeight: FontWeight.bold),
+          headline1: TextStyle(
+              color: AppColors.textDark,
+              fontSize: 15,
+              fontWeight: FontWeight.bold),
         ),
         primaryTextTheme: const TextTheme(
           headline6: TextStyle(color: AppColors.textDark),
@@ -62,7 +65,7 @@ class AppTheme {
         brightness: Brightness.dark,
         visualDensity: visualDensity,
         //textTheme:
-            //GoogleFonts.interTextTheme().apply(bodyColor: AppColors.textLigth),
+        //GoogleFonts.interTextTheme().apply(bodyColor: AppColors.textLigth),
         backgroundColor: _DarkColors.background,
         scaffoldBackgroundColor: _DarkColors.background,
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -70,7 +73,10 @@ class AppTheme {
         ),
         cardColor: _DarkColors.card,
         textTheme: const TextTheme(
-          headline1: TextStyle(color: AppColors.textLigth, fontSize: 15,),
+          headline1: TextStyle(
+            color: AppColors.textLigth,
+            fontSize: 15,
+          ),
         ),
         primaryTextTheme: const TextTheme(
           headline6: TextStyle(color: AppColors.textLigth),
