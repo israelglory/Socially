@@ -74,9 +74,9 @@ class AppTheme {
         cardColor: _DarkColors.card,
         textTheme: const TextTheme(
           headline1: TextStyle(
-            color: AppColors.textLigth,
-            fontSize: 15,
-          ),
+              color: AppColors.textLigth,
+              fontSize: 15,
+              fontWeight: FontWeight.bold),
         ),
         primaryTextTheme: const TextTheme(
           headline6: TextStyle(color: AppColors.textLigth),
