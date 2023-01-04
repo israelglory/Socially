@@ -157,7 +157,7 @@ class TextMessage extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                      top: 0,
+                      top: 5,
                       right: 10.0,
                       bottom: 10.0,
                     ),
