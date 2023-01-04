@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:socially/exports.dart';
 import 'package:socially/models/user_model.dart';
 

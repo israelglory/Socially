@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 abstract class AppColors {
   static const secondary = Color(0xFF3B76F6);

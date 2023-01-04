@@ -2,7 +2,6 @@
 
 import 'package:faker/faker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:socially/constants/firebase_constants.dart';
 import 'package:socially/exports.dart';

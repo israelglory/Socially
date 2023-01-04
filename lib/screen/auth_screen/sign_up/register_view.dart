@@ -20,7 +20,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
-    bool show = true;
     return ViewModelBuilder<RegisterViewModel>.reactive(
       viewModelBuilder: () => RegisterViewModel(),
       builder: (context, model, _) {

@@ -7,7 +7,7 @@ import 'package:socially/models/message_chat.dart';
 
 class MessagingService {
   final firebaseFirestore = FirebaseFirestore.instance;
-  final _firebaseAuth = FirebaseAuth.instance;
+  // final _firebaseAuth = FirebaseAuth.instance;
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   UploadTask uploadFile(File image, String fileName) {
     Reference reference = firebaseStorage.ref().child(fileName);
