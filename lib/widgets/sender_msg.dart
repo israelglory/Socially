@@ -143,7 +143,9 @@ class TextMessage extends StatelessWidget {
                                 ? const TextStyle(
                                     color: Colors.black,
                                   )
-                                : const TextStyle(color: Colors.white),
+                                : const TextStyle(
+                                    color: Colors.white,
+                                  ),
                         expandText: 'Read More',
                         maxLines: 4,
                         linkStyle: const TextStyle(
