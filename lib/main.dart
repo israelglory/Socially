@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:socially/screen/chat_home/chat_home_view.dart';
-import 'package:socially/screen/chat_screen/chat_screen_view.dart';
 import 'package:socially/screen/splash/splash_view.dart';
 import 'package:socially/theme.dart';
 import 'package:device_preview/device_preview.dart';
