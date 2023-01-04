@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:socially/exports.dart';
 import 'package:socially/screen/chat_home/chat_home_view.dart';

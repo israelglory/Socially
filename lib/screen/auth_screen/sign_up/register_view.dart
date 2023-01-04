@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:socially/constants/app_colors.dart';
 import 'package:socially/screen/auth_screen/login/login_view.dart';
 import 'package:socially/screen/auth_screen/sign_up/register_viewmodel.dart';
-import 'package:socially/screen/chat_home/chat_home_view.dart';
 import 'package:socially/widgets/avatar.dart';
 import 'package:stacked/stacked.dart';
 
